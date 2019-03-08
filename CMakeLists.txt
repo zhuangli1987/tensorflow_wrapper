@@ -23,6 +23,7 @@ ExternalProject_Add(
     UPDATE_COMMAND ""
     CONFIGURE_COMMAND make -f tensorflow/contrib/makefile/Makefile clean
     COMMAND tensorflow/contrib/makefile/download_dependencies.sh
+    COMMAND cp compile_nsync.sh tensorflow/contrib/makefile/compile_nsync.sh
     COMMAND tensorflow/contrib/makefile/compile_nsync.sh
     BUILD_COMMAND ${CMAKE_CURRENT_BINARY_DIR}/build_tensorflow.sh
     INSTALL_COMMAND ""
