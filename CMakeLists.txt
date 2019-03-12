@@ -24,7 +24,6 @@ ExternalProject_Add(
     CONFIGURE_COMMAND make -f tensorflow/contrib/makefile/Makefile clean
     COMMAND cp ${CMAKE_CURRENT_SOURCE_DIR}/protobuf.cmake tensorflow/contrib/cmake/external/protobuf.cmake
     COMMAND cp ${CMAKE_CURRENT_SOURCE_DIR}/workspace.bzl  tensorflow/workspace.bzl
-    COMMAND ./configure
     COMMAND cp ${CMAKE_CURRENT_SOURCE_DIR}/compile_nsync.sh tensorflow/contrib/makefile/compile_nsync.sh
     COMMAND tensorflow/contrib/makefile/download_dependencies.sh  
     COMMAND tensorflow/contrib/makefile/compile_nsync.sh
