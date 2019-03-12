@@ -86,6 +86,7 @@ target_include_directories(${PROJECT_NAME}_EXPORT INTERFACE
 target_link_libraries(${PROJECT_NAME}_EXPORT INTERFACE
     ${CMAKE_INSTALL_PREFIX}/${LIB_DEST}/libtensorflow_cc.so
     ${CMAKE_INSTALL_PREFIX}/${LIB_DEST}/libtensorflow_framework.so
+    ${CMAKE_INSTALL_PREFIX}/${LIB_DEST}/libplatform_protobuf.so
     ${Protobuf_LIBRARIES}
     ${EIGEN3_LIBS}
 )
