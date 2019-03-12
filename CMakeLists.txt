@@ -57,6 +57,7 @@ set(TF_LIB_DIR ${CMAKE_CURRENT_BINARY_DIR}/tensorflow/bazel-bin/tensorflow)
 target_link_libraries(${PROJECT_NAME} INTERFACE
     ${TF_LIB_DIR}/libtensorflow_cc.so 
     ${TF_LIB_DIR}/libtensorflow_framework.so
+    ${TF_LIB_DIR}/core/libplatform_protobuf.so
     ${Protobuf_LIBRARIES}
     ${EIGEN3_LIBS}
 )
@@ -156,6 +157,7 @@ install(
 install(FILES
     ${TF_LIB_DIR}/libtensorflow_cc.so
     ${TF_LIB_DIR}/libtensorflow_framework.so
+    ${TF_LIB_DIR}/core/libplatform_protobuf.so
     DESTINATION ${LIB_DEST}
 )
 
