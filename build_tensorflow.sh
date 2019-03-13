@@ -114,7 +114,6 @@ fi
 bazel build -c opt $config_opts \
             tensorflow/tools/pip_package:build_pip_package \
             tensorflow:libtensorflow_cc.so \
-            tensorflow/core:platform_protobuf \
             tensorflow/tools/graph_transforms:transform_graph \
             tensorflow/tools/graph_transforms:summarize_graph
 
