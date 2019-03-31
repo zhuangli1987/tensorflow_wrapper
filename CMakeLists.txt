@@ -94,22 +94,22 @@ target_link_libraries(${PROJECT_NAME}_EXPORT INTERFACE
 install(
     DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/tensorflow/tensorflow/cc
     DESTINATION ${INCLUDE_DEST}/tensorflow
-    FILES_MATCHING PATTERN "*.h"
+    FILES_MATCHING PATTERN "*.h" PATTERN "*.inc"
 )
 install(
     DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/tensorflow/tensorflow/core
     DESTINATION ${INCLUDE_DEST}/tensorflow
-    FILES_MATCHING PATTERN "*.h"
+    FILES_MATCHING PATTERN "*.h" PATTERN "*.inc"
 )
 install(
     DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/tensorflow/bazel-genfiles/tensorflow
     DESTINATION ${INCLUDE_DEST}
-    FILES_MATCHING PATTERN "*.h"
+    FILES_MATCHING PATTERN "*.h" PATTERN "*.inc"
 )
 install(
     DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/tensorflow/bazel-genfiles/external
     DESTINATION ${INCLUDE_DEST}
-    FILES_MATCHING PATTERN "*.h"
+    FILES_MATCHING PATTERN "*.h" PATTERN "*.inc"
 )
 install(
     DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/tensorflow/third_party
@@ -130,7 +130,7 @@ install(
 install(
     DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/tensorflow/tensorflow/contrib/makefile/downloads/absl/absl
     DESTINATION ${INCLUDE_DEST}
-    FILES_MATCHING PATTERN "*.h"
+    FILES_MATCHING PATTERN "*.h" PATTERN "*.inc"
 )
 # (Note that we cannot simply include all *.h or *.hpp files, since e.g., eigen
 # does not use file extensions for header files.)
