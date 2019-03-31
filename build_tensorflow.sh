@@ -96,7 +96,7 @@ elif [[ "$(uname -r)" == *"tegra"* ]] && [[ "$(uname -m)" = "aarch64" ]]; then
     export TF_CUDNN_VERSION="$(ls -l $CUDNN_INSTALL_PATH | grep -oP '(?<=libcudnn.so.)\s*(\d+)\.(\d*)\.(\d*)\s*' | head -n 1)"
     export TF_NEED_TENSORRT=1
     export TENSORRT_INSTALL_PATH="$CUDNN_INSTALL_PATH"
-    export TF_NCCL_VERSION=1.3
+    export TF_NCCL_VERSION=2.4.2
 
     bash ./configure
     git apply -p1 ../jetson.patch
