@@ -25,6 +25,7 @@ export TF_NEED_MPI=0
 export CC_OPT_FLAGS="-march=native"
 export NCCL_INSTALL_PATH="/usr/lib/x86_64-linux-gnu"
 export NCCL_HDR_PATH="/usr/include/"
+export TF_NCCL_VERSION="2.4.2"
 
 if [ "$(uname -m)" = "x86_64" ]; then
     # Check if CUDA is installed.
