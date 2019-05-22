@@ -110,7 +110,6 @@ elif [[ "$(uname -r)" == *"tegra"* ]] && [[ "$(uname -m)" = "aarch64" ]]; then
     export CUDA_TOOLKIT_PATH="$(dirname $(dirname $(which nvcc)))"
     export CUDNN_INSTALL_PATH="/usr/lib/aarch64-linux-gnu"
     export NCCL_INSTALL_PATH="/usr/local/"
-    export NCCL_INSTALL_PATH="/usr/local/lib/"
     export NCCL_HDR_PATH="/usr/local/include/"
     export TF_NEED_TENSORRT=1
     export TENSORRT_INSTALL_PATH="$CUDNN_INSTALL_PATH"
