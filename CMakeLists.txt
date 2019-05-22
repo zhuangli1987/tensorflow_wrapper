@@ -9,7 +9,7 @@ endif()
 # Copy build execution files
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/build_tensorflow.sh ${CMAKE_CURRENT_BINARY_DIR}/build_tensorflow.sh COPYONLY)
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/jetson.patch ${CMAKE_CURRENT_BINARY_DIR}/jetson.patch COPYONLY)
-
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/CROSSTOOL.tpl ${CMAKE_CURRENT_BINARY_DIR}/CROSSTOOL.tpl COPYONLY)
 
 ExternalProject_Add(
     tensorflow
