@@ -78,8 +78,24 @@ if [ "$(uname -m)" = "x86_64" ]; then
 
 elif [[ "$(uname -r)" == *"tegra"* ]] && [[ "$(uname -m)" = "aarch64" ]]; then
     echo "Tegra system detected..."
+    # Check if CUDA is installed.
+    if [ -e /usr/local/cuda ]; then
+        echo "Using CUDA from /usr/local/cuda"
+        export CUDA_PATH=/usr/local/cuda
+    fi
 
+    # Check if CUDNN is installed.
+    if [ -e /usr/local/cuda/include/cudnn.h ]; then
+        echo "Using CUDNN from /usr/local/cuda"
+        export CUDNN_PATH=/usr/local/cuda
+    elif [ -e /usr/include/cudnn.h ]; then
+        echo "Using CUDNN from /usr"
+        export CUDNN_PATH=/usr
+    fi
+    export LD_LIBRARY_PATH=${CUDA_PATH}/extras/CUPTI/lib64:$LD_LIBRARY_PATH
+    export TF_NCCL_VERSION=2.4.2
     export TF_NEED_CUDA=1
+    config_opts="--config=cuda"
 
     if [ "$(uname -r)" = "4.4.38-tegra" ]; then
         # Check specific to TX2 JP 3.3
@@ -93,15 +109,29 @@ elif [[ "$(uname -r)" == *"tegra"* ]] && [[ "$(uname -m)" = "aarch64" ]]; then
 
     export CUDA_TOOLKIT_PATH="$(dirname $(dirname $(which nvcc)))"
     export CUDNN_INSTALL_PATH="/usr/lib/aarch64-linux-gnu"
-    export TF_CUDNN_VERSION="$(ls -l $CUDNN_INSTALL_PATH | grep -oP '(?<=libcudnn.so.)\s*(\d+)\.(\d*)\.(\d*)\s*' | head -n 1)"
+    export NCCL_INSTALL_PATH="/usr/local/"
+    export NCCL_INSTALL_PATH="/usr/local/lib/"
+    export NCCL_HDR_PATH="/usr/local/include/"
     export TF_NEED_TENSORRT=1
     export TENSORRT_INSTALL_PATH="$CUDNN_INSTALL_PATH"
     export TF_NCCL_VERSION=2.4.2
+    export TF_CUDA_VERSION=$(nvcc --version | sed -n 's/^.*release \(.*\),.*/\1/p')
+    export TF_CUDNN_VERSION="$(sed -n 's/^#define CUDNN_MAJOR\s*\(.*\).*/\1/p' $CUDNN_PATH/include/cudnn.h)"
+    export CUDA_TOOLKIT_PATH="$(dirname $(dirname $(which nvcc)))"
+    export CUDNN_INSTALL_PATH="/usr/lib/x86_64-linux-gnu"
+    export TF_SET_ANDROID_WORKSPACE=0
+    # Check if running as root
+    if [ "$EUID" -ne 0 ]; then
+	    sudo ln -fs ${CUDA_PATH}/lib64/stubs/libcuda.so ${CUDA_PATH}/lib64/stubs/libcuda.so.1
+    else
+	    ln -fs ${CUDA_PATH}/lib64/stubs/libcuda.so ${CUDA_PATH}/lib64/stubs/libcuda.so.1
+    fi
+    export LD_LIBRARY_PATH=${CUDA_PATH}/lib64/stubs:${LD_LIBRARY_PATH}
+    tensorflow/tools/ci_build/builds/configured GPU
 
     bash ./configure
-    git apply -p1 ../jetson.patch
-    config_opts="--config=cuda"
-
+    git apply -p1 ../jetson.patch || true
+    cp ../CROSSTOOL.tpl third_party/gpus/crosstool/CROSSTOOL.tpl
 elif [[ "$(uname -m)" = "aarch64" ]]; then
     bash ./configure
     git apply -p1 ../jetson.patch
