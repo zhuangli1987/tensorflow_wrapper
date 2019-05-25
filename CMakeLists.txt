@@ -26,6 +26,7 @@ ExternalProject_Add(
     COMMAND cp ${CMAKE_CURRENT_SOURCE_DIR}/WORKSPACE  WORKSPACE
     COMMAND cp ${CMAKE_CURRENT_SOURCE_DIR}/workspace.bzl  tensorflow/workspace.bzl
     COMMAND cp ${CMAKE_CURRENT_SOURCE_DIR}/compile_nsync.sh tensorflow/contrib/makefile/compile_nsync.sh
+    COMMAND cp ${CMAKE_CURRENT_SOURCE_DIR}/aws/BUILD.bazel tensorflow/third_party/aws/BUILD.bazel
     COMMAND tensorflow/contrib/makefile/download_dependencies.sh  
     COMMAND tensorflow/contrib/makefile/compile_nsync.sh
     BUILD_COMMAND ${CMAKE_CURRENT_BINARY_DIR}/build_tensorflow.sh
